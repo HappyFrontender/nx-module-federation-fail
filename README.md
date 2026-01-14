@@ -1,96 +1,126 @@
-# NxTemp
+# Nx Module Federation Example with Angular & NGRX Signals
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+This repository demonstrates a complete Nx monorepo setup showcasing Module Federation with Angular and NGRX Signals.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+## 🎯 Features
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/intro#learn-nx?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+- ✅ **Nx 22.3.3** - Latest Nx monorepo tooling
+- ✅ **Angular 21.1.0** - Latest Angular framework
+- ✅ **NGRX Signals 21.0.1** - Modern state management with signals
+- ✅ **Module Federation with Webpack** - Micro-frontend architecture
+- ✅ **Two Lazy-Loaded Angular Libraries** - Demonstrating code splitting and lazy loading
+- ✅ **No Nx Cloud** - Pure local development setup
 
-## Run tasks
+## 📁 Project Structure
 
-To run tasks with Nx use:
-
-```sh
-npx nx <target> <project-name>
+```
+nx-module-federation-fail/
+├── apps/
+│   ├── host/              # Module Federation host application
+│   └── remote/            # Module Federation remote application
+└── libs/
+    ├── feature-a/         # Counter & List Manager with NGRX Signals
+    └── feature-b/         # User & Messages with NGRX Signals
 ```
 
-For example:
+## 🚀 Getting Started
 
-```sh
-npx nx build myproject
+### Prerequisites
+
+- Node.js (v20 or higher)
+- npm (v10 or higher)
+
+### Installation
+
+```bash
+npm install
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+### Running the Application
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Start the host application (which will automatically start the remote):
 
-## Add new projects
-
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-To install a new plugin you can use the `nx add` command. Here's an example of adding the React plugin:
-```sh
-npx nx add @nx/react
+```bash
+npx nx serve host
 ```
 
-Use the plugin's generator to create new projects. For example, to create a new React app or library:
+The application will be available at:
+- **Host**: http://localhost:4200
+- **Remote**: http://localhost:4202 (served automatically)
 
-```sh
-# Generate an app
-npx nx g @nx/react:app demo
+## 🎨 Features Demonstration
 
-# Generate a library
-npx nx g @nx/react:lib some-lib
+### Feature A - Counter & List Manager
+
+Located at `/remote/feature-a`, this feature demonstrates:
+- **NGRX Signal Store** for state management
+- Counter with increment/decrement functionality
+- Dynamic list management (add/remove items)
+- Real-time UI updates using signals
+
+### Feature B - User & Messages
+
+Located at `/remote/feature-b`, this feature demonstrates:
+- **NGRX Signal Store** for user state
+- User name management
+- Active/inactive status toggle
+- Message list management with add/clear functionality
+
+## ��️ Build
+
+Build all applications:
+
+```bash
+npx nx build host
 ```
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+This will build both the host and remote applications.
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## 📝 Key Technologies
 
-## Set up CI!
+### Module Federation
 
-### Step 1
+The project uses Webpack Module Federation to create a micro-frontend architecture where:
+- **Host** application loads and orchestrates remote modules
+- **Remote** application exposes routes that can be lazy-loaded
+- Libraries are shared between applications to reduce bundle size
 
-To connect to Nx Cloud, run the following command:
+### NGRX Signals
 
-```sh
-npx nx connect
-```
+Both feature libraries use NGRX Signals for state management:
+- `signalStore()` - Create a signal-based store
+- `withState()` - Define initial state
+- `withMethods()` - Define actions/methods
+- `patchState()` - Update state immutably
 
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
+### Angular Standalone Components
 
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+All components use the new standalone component API:
+- No NgModules required
+- Direct imports in component metadata
+- Better tree-shaking and smaller bundles
 
-### Step 2
+## 🎯 Purpose
 
-Use the following command to configure a CI workflow for your workspace:
+This repository serves as a minimal example to demonstrate the integration of:
+1. Nx monorepo tooling (22.3.3)
+2. Angular with Module Federation (21.1.0)
+3. NGRX Signals for state management (21.0.1)
+4. Lazy-loaded library architecture
 
-```sh
-npx nx g ci-workflow
-```
+Perfect for understanding potential issues or best practices when combining these technologies.
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## 📸 Screenshots
 
-## Install Nx Console
+### Remote Application Home
+The main remote application entry point showing navigation to both features.
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+### Feature A - Counter & List Manager
+Interactive counter and list management powered by NGRX Signals.
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### Feature B - User & Messages
+User state management and message handling with NGRX Signals.
 
-## Useful links
+## 📄 License
 
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/intro#learn-nx?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+MIT
