@@ -1,0 +1,51 @@
+<div class="feature-container">
+  <h2>Feature B - User & Messages</h2>
+  <p class="description">This feature demonstrates NGRX Signals with user state and messages</p>
+  
+  <div class="user-section">
+    <h3>Current User: <span class="user-name">{{ store.userName() }}</span></h3>
+    <div class="status-badge" [class.active]="store.isActive()">
+      {{ store.isActive() ? 'Active' : 'Inactive' }}
+    </div>
+    <div class="form-group">
+      <input 
+        type="text" 
+        [(ngModel)]="newUserName" 
+        placeholder="Enter new user name" 
+        class="input-field"
+        (keyup.enter)="onUpdateUserName()"
+      />
+      <button class="btn btn-primary" (click)="onUpdateUserName()">Update Name</button>
+    </div>
+    <button class="btn btn-toggle" (click)="store.toggleActive()">
+      Toggle Status
+    </button>
+  </div>
+
+  <div class="messages-section">
+    <h3>Messages ({{ store.messages().length }})</h3>
+    <div class="form-group">
+      <input 
+        type="text" 
+        [(ngModel)]="newMessage" 
+        placeholder="Type a message" 
+        class="input-field"
+        (keyup.enter)="onAddMessage()"
+      />
+      <button class="btn btn-success" (click)="onAddMessage()">Add Message</button>
+    </div>
+    <button class="btn btn-warning" (click)="store.clearMessages()">Clear All</button>
+    
+    <div class="messages-list">
+      @for (message of store.messages(); track $index) {
+        <div class="message-item">
+          <span class="message-index">{{ $index + 1 }}.</span>
+          <span class="message-text">{{ message }}</span>
+        </div>
+      }
+      @empty {
+        <div class="empty-state">No messages. Add one above!</div>
+      }
+    </div>
+  </div>
+</div>
