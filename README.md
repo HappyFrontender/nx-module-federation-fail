@@ -5,11 +5,10 @@ This repository demonstrates a complete Nx monorepo setup showcasing Module Fede
 ## 🎯 Features
 
 - ✅ **Nx 22.3.3** - Latest Nx monorepo tooling
-- ✅ **Angular 21.1.0** - Latest Angular framework
+- ✅ **Angular 21.0.8** - Latest Angular framework
 - ✅ **NGRX Signals 21.0.1** - Modern state management with signals
 - ✅ **Module Federation with Webpack** - Micro-frontend architecture
 - ✅ **Two Lazy-Loaded Angular Libraries** - Demonstrating code splitting and lazy loading
-- ✅ **No Nx Cloud** - Pure local development setup
 
 ## 📁 Project Structure
 
