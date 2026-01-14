@@ -1,1 +1,48 @@
-<p>FeatureA works!</p>
+<div class="feature-container">
+  <h2>Feature A - Counter & List Manager</h2>
+  <p class="description">This feature demonstrates NGRX Signals with a counter and list management</p>
+  
+  <div class="counter-section">
+    <h3>Counter: {{ store.counter() }}</h3>
+    <div class="button-group">
+      <button class="btn btn-primary" (click)="store.increment()">Increment</button>
+      <button class="btn btn-secondary" (click)="store.decrement()">Decrement</button>
+    </div>
+  </div>
+
+  <div class="list-section">
+    <h3>Items List</h3>
+    <div class="add-item-form">
+      <input 
+        type="text" 
+        [(ngModel)]="newItemText" 
+        placeholder="Add a new item" 
+        class="input-field"
+        (keyup.enter)="onAddItem()"
+      />
+      <button class="btn btn-success" (click)="onAddItem()">Add Item</button>
+    </div>
+    
+    <ul class="items-list">
+      @for (item of store.items(); track $index) {
+        <li class="list-item">
+          <span>{{ item }}</span>
+          <button class="btn-remove" (click)="store.removeItem($index)">×</button>
+        </li>
+      }
+      @empty {
+        <li class="empty-state">No items yet. Add one above!</li>
+      }
+    </ul>
+  </div>
+
+  <div class="status-indicator">
+    <span [class.loading]="store.loading()">
+      @if (store.loading()) {
+        Loading...
+      } @else {
+        Ready
+      }
+    </span>
+  </div>
+</div>
