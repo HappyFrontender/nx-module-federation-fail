@@ -8,7 +8,7 @@ export default async function (wco) {
   if (options.optimization) {
     options.optimization = {
       ...options.optimization,
-      concatenateModules: false,
+      concatenateModules: true,
     };
   }
 
